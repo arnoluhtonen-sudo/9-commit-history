@@ -1,6 +1,7 @@
 package part01;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 public class CommitIds {
 
@@ -28,6 +29,29 @@ public class CommitIds {
      * @return a collection of commit ids
      */
     public Collection<String> getCommitIds(String commitLog) {
+
+        //taulukko
+        HashSet<String> idSet = new HashSet<>();
+        String[] rivit = commitLog.split("\\n");
+        
+        for(String sanat : rivit){
+            if (sanat.startsWith("Commit ")) {
+                String[] parts = sanat.split(" ");
+                idSet.add(parts[1]);
+            }
+        }
+        
+
+
+        //split line
+
+        //startstWith "Commit "
+
+        //split " "
+
+        // id.add.part1
+
+        // return id
         /*
          * Note that this method must return a Collection<String>. Collection is an
          * interface and you need to return an instance of some class that implements
@@ -38,6 +62,6 @@ public class CommitIds {
          * Note also, that if the given commitLog is empty, you must return an empty
          * collection.
          */
-        return null;
+        return idSet;
     }
 }
