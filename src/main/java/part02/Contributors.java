@@ -1,7 +1,12 @@
 package part02;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Contributors {
 
@@ -24,7 +29,20 @@ public class Contributors {
     public Collection<String> getContributors(String commitLog) {
         // Like in the previous exercise, you need to return an instance of some class
         // that implements the Collection interface. The choice is yours.
-        return null;
+        if (commitLog == null || commitLog.isEmpty()) {
+            
+            return List.of();
+        }
+        HashSet<String> users = new HashSet<>();
+        String[] rivit = commitLog.split("\\n");
+        
+        for(String sanat : rivit){
+            if (sanat.startsWith("Commit ")) {
+                String[] parts = sanat.split(" ");
+                users.add(parts[3]);
+            }
+        }
+        return users;
     }
 
     /**
@@ -48,6 +66,33 @@ public class Contributors {
      * @return a map containing the commit ids grouped by contributor
      */
     public Map<String, Collection<String>> groupCommitIdsByContributors(String commitLog) {
-        return null;
+        Map<String, Collection<String>> map = new HashMap<>();
+        String[] rivit = commitLog.split("\\n");
+
+        for(String rivi : rivit){
+            if (rivi.startsWith("Commit ")){
+            String[] osat = rivi.split(" ");
+
+            String contributor = osat[3];
+            String id = osat[1];
+            Collection<String> ad = map.get(contributor);
+            if (ad == null){
+                ad = new ArrayList<>();
+            }
+            ad.add(id);
+            map.put(contributor, ad);
+            
+            }
+        }
+        //https://stackoverflow.com/questions/37773233/read-a-file-and-map-to-a-mapstring-liststring
+        //     String k = list[0].trim();
+        //     String v1 = list[1].trim();
+        //     List<String> ad = graphlist.get(k);
+        //     if (ad == null){
+        //         ad = new ArrayList<>();
+        //     }
+        //     ad.add(v1);
+        //     graphlist.put(k,ad);
+        return map;
     }
 }

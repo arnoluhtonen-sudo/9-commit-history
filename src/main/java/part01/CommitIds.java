@@ -2,6 +2,7 @@ package part01;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 
 public class CommitIds {
 
@@ -31,15 +32,15 @@ public class CommitIds {
     public Collection<String> getCommitIds(String commitLog) {
 
         //taulukko
-        HashSet<String> idSet = new HashSet<>();
-        String[] rivit = commitLog.split("\\n");
+        // HashSet<String> idSet = new HashSet<>();
+        // String[] rivit = commitLog.split("\\n");
         
-        for(String sanat : rivit){
-            if (sanat.startsWith("Commit ")) {
-                String[] parts = sanat.split(" ");
-                idSet.add(parts[1]);
-            }
-        }
+        // for(String sanat : rivit){
+        //     if (sanat.startsWith("Commit ")) {
+        //         String[] parts = sanat.split(" ");
+        //         idSet.add(parts[1]);
+        //     }
+        // }
         
 
 
@@ -62,6 +63,13 @@ public class CommitIds {
          * Note also, that if the given commitLog is empty, you must return an empty
          * collection.
          */
-        return idSet;
+
+        List<Commit> commits = CommitParser.parseMany(commitLog);
+
+        return commits.stream()
+        .map(commit -> commit.id())
+        .toList();
+
+        // return idSet;
     }
 }
